@@ -1,0 +1,38 @@
+* {
+  margin:0;
+  padding: 0;
+  border-color: "red";
+}
+
+.overall{
+  flex-grow:1;
+  background-color:"#03084a";
+}
+
+.editor-container{
+ display: flex;
+ flex-direction: column;
+ padding: .5rem;
+ background-color:'#002984'
+}
+
+.editor-title{
+ justify-content: space-between;
+ background-color: brown;
+ color: white;
+ padding: .5rem;
+ border-top-right-radius: .5rem;
+ border-top-left-radius: .5rem; 
+}
+
+.CodeMirror{
+ height:100% !important;
+}
+
+.code-mirror-wrapper{
+ flex-grow: 1;
+ border-bottom-right-radius: .5rem;
+ border-bottom-left-radius:  .5rem;
+ overflow: hidden;
+}
+

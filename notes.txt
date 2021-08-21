@@ -1,0 +1,12 @@
+We initialised a react app
+Removed test files and App.css + webvitals files
+
+
+Then removed code from App.js
+
+
+Now installing essential libraries
+    - npm install codemirror         (Original text editor)
+    - npm install react-codemirror2  (Plugin to use text editor in react )
+
+
