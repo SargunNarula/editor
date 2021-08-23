@@ -1,13 +1,35 @@
 * {
   margin:0;
   padding: 0;
-  border-color: "red";
 }
 
-.overall{
+/* .overall{
   flex-grow:1;
   background-color:"#03084a";
+} */
+
+.container{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: green solid;
+  background-color:"#03084a";
 }
+
+.react-monaco-editor-container{
+  position: inherit !important;
+  width: 100% !important;
+}
+
+.monaco-editor{
+  position: inherit !important;
+  width: 100% !important;
+}
+
+
+
 
 .editor-container{
  display: flex;
