@@ -99,7 +99,7 @@
     ]
   },
   "devDependencies": {
-    "monaco-editor-webpack-plugin": "^4.1.2",
+    "monaco-editor-webpack-plugin": "^4.2.0",
     "react-app-rewired": "^2.1.8"
   },
   "jest": {

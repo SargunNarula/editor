@@ -51,14 +51,5 @@
  border-top-left-radius: .5rem; 
 }
 
-.CodeMirror{
- height:100% !important;
-}
 
-.code-mirror-wrapper{
- flex-grow: 1;
- border-bottom-right-radius: .5rem;
- border-bottom-left-radius:  .5rem;
- overflow: hidden;
-}
 
