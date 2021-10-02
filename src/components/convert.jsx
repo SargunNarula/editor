@@ -1,76 +1,160 @@
-import React,{Component} from 'react';
+import React,{useState, useEffect} from 'react';
 import MonacoEditor from 'react-monaco-editor'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 
-const default_code = `from os import system, name
-from time import sleep
-class Node:
-    num_nodes = 0
+function SimpleEditor(props) {
 
-    def __init__(self, name, next_element=None):
-        self.name = name
-        self.next = next_element
-        Node.num_nodes += 1
+        // Defaults
 
-    def getname(self):
-        return self.name
+  const default_code_python = `
+# Online Python compiler.
+# Write Python 3 code in this online editor and run it.
+print("Hello world")`
 
-    def getnext(self):
-        return self.next
+  const default_code_cpp = `
+// Your First C++ Program
 
-    def setname(self, name):
-        self.name = name
+#include <iostream>
 
-    def setnext(self, link):
-        self.next = link
-        
-class Linked_List:
-    def __init__(self, node=None):
-        self.head = node
-        self.tail = node
-        self.choice = {"1": self.print_list,
-                       "2": self.length,
-                       "3": self.add_operations,
-                       "4": self.del_operations,
-                       "5": self.find,
-                       "6": self.change_data
-                       }`
+int main() {
+    std::cout << "Hello World!";
+    return 0;
+}`
 
-class SimpleEditor extends Component {
+  const default_code_java = `
+class Simple{
+    public static void main(String args[]){
+     System.out.println("Hello Java");
+    }
+}`
 
 
-    constructor(props){
-        super(props);
-        this.state = {
-	    code: default_code,
-	    width: props.width
+
+
+
+
+
+
+
+
+    console.log("\n\n\nRender\n\n\n")
+
+
+
+
+    const handle_submit=(newValue,event)=> {
+        setCode(newValue)
+
+        // We are sending code to parent to make API call in parent
+        props.parent_function(newValue)
+
+    }
+
+
+    // To map frontend language name to backend language name
+    const map = {
+
+        "cpp"    : ["cpp"   ,default_code_cpp],
+        "java"   : ["java"  ,default_code_java],
+        "python3": ["python",default_code_python]
+    
+    }
+
+    const [lg, setlg]  = useState(() => {
+                        
+                        const saved = localStorage.getItem("lang");
+                        
+                        console.log("saved language - ",saved)
+
+                        if(saved==null){
+                            return "python"
+                        }
+
+                        else {
+                            return saved
+                        }
+                        
+                })
+
+    const [code, setCode] = useState(() => {
+                        
+                        const saved = localStorage.getItem("code");
+                        
+                        console.log("saved language - ",saved)
+
+                        if(saved==null){
+                            return default_code_python
+                        }
+
+                        else {
+                            return saved
+                        }
+                        
+                })
+
+
+
+    const check = localStorage.getItem("lang")
+
+    console.log("check - ",check)
+    
+    // To only run when we want to change language or on page refresh
+    if(check!=null){
+	
+	console.log("props.lang -",props.lang)
+        // Condition for language change
+        if(props.lang!=check){
+            
+	    //setlg(map[props.lang][0])
+	    if(map[props.lang][0]!=lg){
+
+
+	   	 setlg(map[props.lang][0])
+	       	 setCode(map[props.lang][1])
+		 console.log("Inside lang -",lg)
+
+	    } 
+	    console.log("Outside lang - ",lg)
+	    //localStorage.setItem("lang",map[props.lang][0])
+	    
+	    //setlg(map[props.lang][0])
+	    //console.log("Now lang -",lg)
+            //setCode(map[props.lang[1]]) 
+            //console.log("Now code - ",code)
+
         }
     }
 
-    onChange(newValue, event) {
-        console.log('onChange', newValue, event);
-    }
+    
 
-    render() {
-        	
-	    console.log("width -",this.state.width)
-        return (
-            <MonacoEditor
-                width={this.state.code}
-                //width="600"
-		height="800"
-                language="typescript"
-		theme="vs-dark"
-		options={{
-		       selectOnLineNumbers: true,
-                   	minimap:{ enabled:"false" }
-			}}
-                defaultValue=''
-                value={this.state.code}
-                onChange={this.onChange}
-            />
-        )
-    }
+    useEffect( () => {
+	console.log("inside useEffect")
+        localStorage.setItem("lang", lg);
+        localStorage.setItem("code", code);
+        
+    })
+
+
+	//console.log("Before return")
+    return(
+	    <div>
+	    {console.log("hii")}
+	    
+                    <MonacoEditor
+                        height="450"
+                        language={lg}
+                        theme="dark"
+                        options={{
+                                selectOnLineNumbers: true,
+                                minimap:{ enabled:"false" }
+                                }}
+                        //defaultValue="print('Hello')"
+                        value={code}
+                        onChange={ handle_submit  }
+                />
+	</div>
+           )
 }
 
 export default SimpleEditor

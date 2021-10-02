@@ -28,6 +28,10 @@
   width: 100% !important;
 }
 
+.overflow-guard{
+ width: inherit !important;
+}
+
 
 
 
