@@ -20,8 +20,8 @@ class submit(APIView):
 
     def get(self, request, *arg, **kwargs):
         
-        #return HttpResponse(x['output'])
-        return None
+        return HttpResponse('output')
+        #return None
 
     @csrf_exempt
     def post(self, request, *arg, **kwargs):
